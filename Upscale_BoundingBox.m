@@ -1,0 +1,21 @@
+function [bounding_box] = Upscale_BoundingBox(boundBoxResized, resizedGrayScale, originalGrayScale, margins)
+    resizedPictureWidth = size(resizedGrayScale, 2);
+    resizedPictureHeight = size(resizedGrayScale, 1);
+    leftHorizontalMargin = margins(1);
+    topVerticalMargin = margins(2);
+    rightHorizontalMargin = margins(3);
+    bottomVerticalMargin = margins(4);
+    originalPictureWidth = size(originalGrayScale, 2);
+    originalPictureHeight = size(originalGrayScale, 1);
+    verticalScaleFactor = originalPictureHeight/resizedPictureHeight;
+    horizontalScaleFactor = originalPictureWidth/resizedPictureWidth;
+    bounding_box = [0 0 0 0];
+    bounding_box(1) = boundBoxResized(1)*horizontalScaleFactor;
+    bounding_box(2) = boundBoxResized(2)*verticalScaleFactor;
+    bounding_box(3) = boundBoxResized(3)*horizontalScaleFactor;
+    bounding_box(4) = boundBoxResized(4)*verticalScaleFactor;
+    bounding_box(1) = bounding_box(1) - leftHorizontalMargin;
+    bounding_box(2) = bounding_box(2) - topVerticalMargin;
+    bounding_box(3) = bounding_box(3) + rightHorizontalMargin;
+    bounding_box(4) = bounding_box(4) + bottomVerticalMargin;
+end
